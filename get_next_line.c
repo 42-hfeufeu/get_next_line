@@ -13,24 +13,22 @@
 
 char	*get_next_line(int fd)
 {
-	static char		*buffer;
+	static char		buffer[1024];
 	char			*temp;
-	int				i;
+	static int		i;
 	int				j;
 	unsigned int	reader;
 
 	i = 0;
 	j = 0;
 	reader = read(fd, buffer, sizeof(buffer));
-	buffer = malloc(sizeof(char) * reader);
-	while (buffer[i] != '\0')
+	temp = malloc(sizeof(char) * (sizeof(buffer)));
+	while (buffer[i] != '\0' || '\n')
 	{
-
+		temp[i] = buffer[i];
 		if (buffer[i] == '\n')
 		{
-			temp = malloc(sizeof(char) * i);
-			return (&temp[j]);
-			free(temp);
+			return (temp);
 			j = i;
 		}
 		i++;
@@ -43,5 +41,7 @@ int	main(void)
 	int	file;
 	
 	file = open("poem.txt", O_RDWR);
+	printf("%s", get_next_line(file));
+	printf("%s", get_next_line(file));
 	printf("%s", get_next_line(file));
 }
