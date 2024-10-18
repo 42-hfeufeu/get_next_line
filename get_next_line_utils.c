@@ -63,7 +63,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (prod);
 }
 
-char	*allocator(char s1, char s2)
+/*char	*allocator(char *s1, char *s2)
 {
 	char	*gigatxt;
 	int		i;
@@ -71,7 +71,6 @@ char	*allocator(char s1, char s2)
 	i = 0;
 	while (s2[i] != '\n')
 		i++;
-	gigatxt = malloc(sizeof(char) * (i + 1));
 	i = 0;
-	return (ft_strjoin((const char *)s1, (const char *)s2));
-}
+	return (ft_strjoin(s1, s2));
+}*/
