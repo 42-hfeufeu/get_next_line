@@ -13,27 +13,29 @@
 
 char	*get_next_line(int fd)
 {
-	static char		buffer[1024];
-	char			*temp;
-	static int		i;
-	int				j;
+	char			*buffer;
+	char			*bin;
 	unsigned int	reader;
+	int				i;
+	static char		*txt;
 
 	i = 0;
-	j = 0;
-	reader = read(fd, buffer, sizeof(buffer));
-	temp = malloc(sizeof(char) * (sizeof(buffer)));
-	while (buffer[i] != '\0' || '\n')
+	buffer = malloc(BUFFER_SIZE);
+	read(fd, buffer, sizeof(buffer));
+	bin = malloc(sizeof(char) * reader);
+	while (buffer[i] != '\0')
 	{
-		temp[i] = buffer[i];
-		if (buffer[i] == '\n')
+		while (buffer[i])
 		{
-			return (temp);
-			j = i;
+			bin[i] = buffer[i];
+			i++;
 		}
+		if (gocheck(bin) == 1)
+			return (allocator(txt, bin));
+		read(fd, buffer, sizeof(buffer));
 		i++;
 	}
-	return (NULL);
+	return (bin);
 }
 
 int	main(void)
