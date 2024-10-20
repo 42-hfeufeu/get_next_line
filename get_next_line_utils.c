@@ -21,6 +21,24 @@ size_t ft_strlen(const char *s)
 	return (i);
 }
 
+char	*ft_strdup(const char *s)
+{
+	char	*s1;
+	int		i;
+
+	s1 = malloc(sizeof(char) * ft_strlen(s) + 1);
+	if (s1 == NULL)
+		return (NULL);
+	i = 0;
+	while (s[i] != '\0')
+	{
+		s1[i] = s[i];
+		i++;
+	}
+	s1[i] = '\0';
+	return (s1);
+}
+
 int	gocheck(char *s)
 {
 	int	i;
@@ -61,6 +79,34 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	}
 	prod[j] = '\0';
 	return (prod);
+}
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	unsigned int	j;
+	char			*des;
+
+	j = 0;
+	if ((start + len) > ft_strlen(s))
+		len = (ft_strlen(s) - start);
+	if (start > ft_strlen(s) || s == NULL)
+		return (ft_strdup(""));
+	des = malloc(sizeof(char) * (len) + 1);
+	if (!des)
+		return (NULL);
+	if (start >= ft_strlen(s))
+	{
+		des[0] = '\0';
+		return (des);
+	}
+	while (s[start] != '\0' && j < len)
+	{
+		des[j] = s[start];
+		j++;
+		start++;
+	}
+	des[j] = '\0';
+	return (des);
 }
 
 /*char	*allocator(char *s1, char *s2)
