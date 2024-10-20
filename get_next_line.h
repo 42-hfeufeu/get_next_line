@@ -20,8 +20,13 @@
 # include <fcntl.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 4
+#  define BUFFER_SIZE 6
 # endif
+
+typedef struct s_list {
+	char			*content;
+	struct s_list	*next;
+}					t_list;
 
 int	gocheck(char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
