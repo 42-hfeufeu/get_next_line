@@ -14,8 +14,8 @@
 char	*get_next_line(int fd)
 {
 	char			*buffer;
+	int				reader;
 	static char		*bin;
-	unsigned int	reader;
 	unsigned int	i;
 	char			*txt;
 
@@ -28,6 +28,8 @@ char	*get_next_line(int fd)
 	while (i < 100)
 	{
 		bin = ft_strjoin(bin, buffer);
+		if (!bin)
+			return (NULL);
 		while (bin[i])
 		{
 			txt[i] = bin[i];
@@ -52,7 +54,6 @@ int	main(void)
 	int	file;
 	
 	file = open("poem.txt", O_RDWR);
-	printf("%s", get_next_line(file));
 	printf("%s", get_next_line(file));
 	printf("%s", get_next_line(file));
 }

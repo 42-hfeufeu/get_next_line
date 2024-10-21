@@ -53,7 +53,7 @@ int	gocheck(char *s)
 	return (0);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char const *s2)
 {
 	int		i;
 	int		j;
@@ -78,6 +78,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		j++;
 	}
 	prod[j] = '\0';
+	free(s1);
 	return (prod);
 }
 
@@ -109,14 +110,19 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (des);
 }
 
-/*char	*allocator(char *s1, char *s2)
+char	*judgator(char *s1, int bsize)
 {
-	char	*gigatxt;
-	int		i;
+	free (s1);
+	if (!s1)
+	{
+		s1 = malloc(sizeof(char) * bsize);
+		return (s1);
+	}
+	return (NULL);
+}
 
-	i = 0;
-	while (s2[i] != '\n')
-		i++;
-	i = 0;
-	return (ft_strjoin(s1, s2));
+/*
+void	*freezator(char *s)
+{
+
 }*/

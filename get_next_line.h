@@ -20,7 +20,7 @@
 # include <fcntl.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 6
+#  define BUFFER_SIZE 2
 # endif
 
 typedef struct s_list {
@@ -29,9 +29,10 @@ typedef struct s_list {
 }					t_list;
 
 int	gocheck(char *s);
-char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin(char *s1, char const *s2);
 char	*get_next_line(int fd);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strdup(const char *s);
 size_t ft_strlen(const char *s);
+char	*judgator(char *s1, int bsize);
 #endif

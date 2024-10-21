@@ -4,3 +4,4 @@ ft_strdup
 ft_substr
 (ft_strlen aussi)
 et peut etre strchr
+penser a mettre le \0 au resultat de read parce que le read le met pas
