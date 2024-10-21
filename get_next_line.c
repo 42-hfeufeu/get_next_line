@@ -24,7 +24,7 @@ char	*get_next_line(int fd)
 	reader = read(fd, buffer, BUFFER_SIZE);
 	txt = malloc(sizeof(char) * BUFFER_SIZE);
 	if (!bin)
-		bin = malloc(sizeof(char) * reader);
+		bin = calloc(1, 1);
 	while (i < 100)
 	{
 		bin = ft_strjoin(bin, buffer);
@@ -51,9 +51,11 @@ char	*get_next_line(int fd)
 
 int	main(void)
 {
+	char *s;
 	int	file;
-	
+
 	file = open("poem.txt", O_RDWR);
-	printf("%s", get_next_line(file));
-	printf("%s", get_next_line(file));
+	s = get_next_line(file);
+	printf("%s", s);
+	free(s);
 }

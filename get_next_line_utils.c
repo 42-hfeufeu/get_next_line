@@ -65,18 +65,10 @@ char	*ft_strjoin(char *s1, char const *s2)
 	if (prod == NULL)
 		return (NULL);
 	while (s1[i] != '\0')
-	{
-		prod[j] = s1[i];
-		i++;
-		j++;
-	}
+		prod[j++] = s1[i++];
 	i = 0;
 	while (s2[i] != '\0')
-	{
-		prod[j] = s2[i];
-		i++;
-		j++;
-	}
+		prod[j++] = s2[i++];
 	prod[j] = '\0';
 	free(s1);
 	return (prod);
@@ -115,10 +107,23 @@ char	*judgator(char *s1, int bsize)
 	free (s1);
 	if (!s1)
 	{
-		s1 = malloc(sizeof(char) * bsize);
+		s1 = malloc(sizeof(char) * bsize + 1);
 		return (s1);
 	}
 	return (NULL);
+}
+
+void	*ft_calloc(size_t nmemb, size_t size)
+{
+	void	*mem;
+
+	if (nmemb && nmemb * size / nmemb != size)
+		return (NULL);
+	mem = malloc (nmemb * size);
+	if (!mem)
+		return (NULL);
+	mem = ft_memset(mem, 0, (nmemb * size));
+	return (mem);
 }
 
 /*
