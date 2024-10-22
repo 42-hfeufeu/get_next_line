@@ -24,10 +24,13 @@
 # endif
 
 typedef struct s_list {
-	char			*content;
+	char			c;
 	struct s_list	*next;
 }					t_list;
 
+int	checkif(char *s1);
+char	*caller(char *bin, char *buffer);
+void	*ft_memset(void *s, int c, size_t n);
 int	gocheck(char *s);
 char	*ft_strjoin(char *s1, char const *s2);
 char	*get_next_line(int fd);

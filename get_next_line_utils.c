@@ -21,6 +21,21 @@ size_t ft_strlen(const char *s)
 	return (i);
 }
 
+void	*ft_memset(void *s, int c, size_t n)
+{
+	size_t	i;
+	char	*r;
+
+	r = s;
+	i = 0;
+	while (i < n)
+	{
+		r[i] = c;
+		i++;
+	}
+	return (r);
+}
+
 char	*ft_strdup(const char *s)
 {
 	char	*s1;
@@ -37,20 +52,6 @@ char	*ft_strdup(const char *s)
 	}
 	s1[i] = '\0';
 	return (s1);
-}
-
-int	gocheck(char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == '\n')
-			return (1);
-		i++;
-	}
-	return (0);
 }
 
 char	*ft_strjoin(char *s1, char const *s2)
@@ -102,17 +103,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (des);
 }
 
-char	*judgator(char *s1, int bsize)
-{
-	free (s1);
-	if (!s1)
-	{
-		s1 = malloc(sizeof(char) * bsize + 1);
-		return (s1);
-	}
-	return (NULL);
-}
-
 void	*ft_calloc(size_t nmemb, size_t size)
 {
 	void	*mem;
@@ -126,8 +116,39 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	return (mem);
 }
 
-/*
-void	*freezator(char *s)
+int	checkif(char *s1)
 {
+	int	i;
 
+	i = 0;
+	while (s1)
+	{
+		if (s1[i] == '\n')
+			return (i);
+		i++;
+	}
+	return (0);
+}
+/*
+char	*caller(char *bin, char *buffer)
+{
+	char	*txt;
+	int		i;
+	
+	i = 0;
+	while (bin[i])
+	{
+		if (bin[i] == '\n')
+		{
+			txt = ft_substr(bin, 0, (i + 1));
+			bin = ft_substr(bin, (i + 1), (ft_strlen(bin) - i));
+			return (txt);
+		}
+		i++;
+	}
+	free(buffer);
+	buffer = malloc(BUFFER_SIZE);
+	if (!buffer)
+		return (NULL);
+	return (NULL);
 }*/
