@@ -13,45 +13,34 @@
 
 char	*get_next_line(int fd)
 {
-	char			*buffer;
-	static char		*bin;
-	unsigned int	i;
-	char			*txt;
+	static char	*bin;
+	char		*txt;
+	int			i;
 
-	i = 0;
-	buffer = malloc(BUFFER_SIZE);
-	read(fd, buffer, BUFFER_SIZE);
+	bin = caller(fd, bin);
 	if (!bin)
-		bin = calloc(sizeof(char), BUFFER_SIZE);
-	while (i < 100)
+		return (NULL);
+	i = 0;
+	while (bin[i] && bin[i] != '\n')
+		i++;
+	if (bin[i] == '\n')
 	{
-		bin = ft_strjoin(bin, buffer);
-		if (!bin)
-			return (NULL);
-		while (bin[i])
-		{
-			if (bin[i] == '\n')
-			{
-				txt = ft_substr(bin, 0, (i + 1));
-				bin = ft_substr(bin, (i + 1), (ft_strlen(bin) - i));
-				return (txt);
-			}
-			i++;
-		}
-		free(buffer);
-		buffer = malloc(BUFFER_SIZE);
-		if (!buffer || bin[i] == '\0')
-			return (NULL);
-		read(fd, buffer, BUFFER_SIZE);
+		txt = ft_substr(bin, 0, (i + 1));
+		bin = ft_substr(bin, (i + 1), ft_strlen(bin) - i);
+		return (txt);
 	}
+	if (bin[i] == '\0')
+		free(bin);
 	return (NULL);
 }
+
 
 int	main(void)
 {
 	int	file;
 
 	file = open("poem.txt", O_RDWR);
+	printf("%s", get_next_line(file));
 	printf("%s", get_next_line(file));
 	printf("%s", get_next_line(file));
 	printf("%s", get_next_line(file));

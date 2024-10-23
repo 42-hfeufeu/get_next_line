@@ -28,8 +28,10 @@ typedef struct s_list {
 	struct s_list	*next;
 }					t_list;
 
+char	*ft_strchr(const char *s, int c);
+void	*ft_calloc(size_t nmemb, size_t size);
 int	checkif(char *s1);
-char	*caller(char *bin, char *buffer);
+char	*caller(int fd, char *bin);
 void	*ft_memset(void *s, int c, size_t n);
 int	gocheck(char *s);
 char	*ft_strjoin(char *s1, char const *s2);

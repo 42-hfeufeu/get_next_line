@@ -116,39 +116,47 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	return (mem);
 }
 
-int	checkif(char *s1)
+char	*ft_strchr(const char *s, int c)
 {
 	int	i;
 
 	i = 0;
-	while (s1)
+	if ((unsigned char)c > 127)
+		return ((char *)&s[i]);
+	while (s[i] != '\0')
 	{
-		if (s1[i] == '\n')
-			return (i);
+		if (s[i] == (unsigned char)c)
+			return ((char *)&s[i]);
 		i++;
 	}
-	return (0);
+	if ((unsigned char)c == '\0')
+		return ((char *)&s[i]);
+	return (NULL);
 }
-/*
-char	*caller(char *bin, char *buffer)
+
+char	*caller(int fd, char *bin)
 {
-	char	*txt;
-	int		i;
-	
-	i = 0;
-	while (bin[i])
-	{
-		if (bin[i] == '\n')
-		{
-			txt = ft_substr(bin, 0, (i + 1));
-			bin = ft_substr(bin, (i + 1), (ft_strlen(bin) - i));
-			return (txt);
-		}
-		i++;
-	}
-	free(buffer);
+	char	*buffer;
+	int		bytes;
+	int		n;
+
+	n = 0;
 	buffer = malloc(BUFFER_SIZE);
 	if (!buffer)
 		return (NULL);
-	return (NULL);
-}*/
+	if (!bin)
+		bin = ft_calloc(1, 1);
+	while (!n && (bytes = read(fd, buffer, BUFFER_SIZE)) > 0)
+	{
+		bin = ft_strjoin(bin, buffer);
+		if (!bin)
+		{
+			free(buffer);
+			return (NULL);
+		}
+		if (ft_strchr(bin, '\n'))
+			n = 1;
+	}
+	free(buffer);
+	return (bin);
+}

@@ -1,0 +1,34 @@
+char	*get_next_line(int fd)
+{
+	char			*buffer;
+	static char		*bin;
+	unsigned int	i;
+	char			*txt;
+
+	i = 0;
+	buffer = malloc(BUFFER_SIZE);
+	if (!bin)
+		bin = ft_calloc(1, 1);
+	while (i < 100)
+	{
+		read(fd, buffer, BUFFER_SIZE);
+		bin = ft_strjoin(bin, buffer);
+		if (!bin)
+			return (NULL);
+		while (bin[i])
+		{
+			if (bin[i] == '\n')
+			{
+				txt = ft_substr(bin, 0, (i + 1));
+				bin = ft_substr(bin, (i + 1), (ft_strlen(bin) - i));
+				return (txt);
+			}
+			i++;
+		}
+		free(buffer);
+		buffer = malloc(BUFFER_SIZE);
+		if (!buffer)
+			return (NULL);
+	}
+	return (NULL);
+}
