@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "get_next_line.h"
 
-size_t ft_strlen(const char *s)
+size_t ft_strlen(char *s)
 {
 	unsigned int	i;
 
@@ -36,7 +36,7 @@ void	*ft_memset(void *s, int c, size_t n)
 	return (r);
 }
 
-char	*ft_strdup(const char *s)
+char	*ft_strdup(char *s)
 {
 	char	*s1;
 	int		i;
@@ -54,7 +54,7 @@ char	*ft_strdup(const char *s)
 	return (s1);
 }
 
-char	*ft_strjoin(char *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	int		i;
 	int		j;
@@ -62,7 +62,7 @@ char	*ft_strjoin(char *s1, char const *s2)
 
 	i = 0;
 	j = 0;
-	prod = (char *)malloc(sizeof(char) * ((ft_strlen(s1) + ft_strlen(s2)) + 1));
+	prod = ft_calloc(1, ((ft_strlen(s1) + ft_strlen(s2)) + 1));
 	if (!prod)
 		return (NULL);
 	while (s1[i] != '\0')
@@ -75,7 +75,7 @@ char	*ft_strjoin(char *s1, char const *s2)
 	return (prod);
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(char *s, unsigned int start, size_t len)
 {
 	unsigned int	j;
 	char			*des;
@@ -137,7 +137,6 @@ char	*ft_strchr(const char *s, int c)
 char	*caller(int fd, char *bin)
 {
 	char	*buffer;
-	char	*tmp;
 	int		bytes;
 	int		n;
 
@@ -146,11 +145,10 @@ char	*caller(int fd, char *bin)
 	if (!buffer)
 		return (NULL);
 	if (!bin)
-		bin = ft_calloc(1, 1);
+		bin = malloc(BUFFER_SIZE);
 	while (!n && (bytes = read(fd, buffer, BUFFER_SIZE)) > 0)
 	{
-		tmp = ft_strjoin(bin, buffer);
-		free(bin);
+		bin = ft_strjoin(bin, buffer);
 		if (!bin || bytes == -1)
 		{
 			free(buffer);

@@ -34,10 +34,10 @@ int	checkif(char *s1);
 char	*caller(int fd, char *bin);
 void	*ft_memset(void *s, int c, size_t n);
 int	gocheck(char *s);
-char	*ft_strjoin(char *s1, char const *s2);
+char	*ft_strjoin(char *s1, char *s2);
 char	*get_next_line(int fd);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	*ft_strdup(const char *s);
-size_t ft_strlen(const char *s);
+char	*ft_substr(char *s, unsigned int start, size_t len);
+char	*ft_strdup(char *s);
+size_t	ft_strlen(char *s);
 char	*judgator(char *s1, int bsize);
 #endif
