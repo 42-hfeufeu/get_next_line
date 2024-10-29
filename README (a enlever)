@@ -1,7 +1,0 @@
-reutiliser les fonctions que j'ai faite, dans les fonctions que j'ai faite je pense que je peux mettre:
-ft_strjoin
-ft_strdup
-ft_substr
-(ft_strlen aussi)
-et peut etre strchr
-penser a mettre le \0 au resultat de read parce que le read le met pas

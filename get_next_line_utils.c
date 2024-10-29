@@ -62,8 +62,8 @@ char	*ft_strjoin(char *s1, char const *s2)
 
 	i = 0;
 	j = 0;
-	prod = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (prod == NULL)
+	prod = (char *)malloc(sizeof(char) * ((ft_strlen(s1) + ft_strlen(s2)) + 1));
+	if (!prod)
 		return (NULL);
 	while (s1[i] != '\0')
 		prod[j++] = s1[i++];
@@ -137,21 +137,24 @@ char	*ft_strchr(const char *s, int c)
 char	*caller(int fd, char *bin)
 {
 	char	*buffer;
+	char	*tmp;
 	int		bytes;
 	int		n;
 
 	n = 0;
-	buffer = malloc(BUFFER_SIZE);
+	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	if (!buffer)
 		return (NULL);
 	if (!bin)
 		bin = ft_calloc(1, 1);
 	while (!n && (bytes = read(fd, buffer, BUFFER_SIZE)) > 0)
 	{
-		bin = ft_strjoin(bin, buffer);
-		if (!bin)
+		tmp = ft_strjoin(bin, buffer);
+		free(bin);
+		if (!bin || bytes == -1)
 		{
 			free(buffer);
+			free(bin);
 			return (NULL);
 		}
 		if (ft_strchr(bin, '\n'))

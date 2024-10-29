@@ -29,12 +29,9 @@ char	*get_next_line(int fd)
 		bin = ft_substr(bin, (i + 1), ft_strlen(bin) - i);
 		return (txt);
 	}
-	if (bin[i] == '\0')
-		free(bin);
 	return (NULL);
 }
-
-
+/*
 int	main(void)
 {
 	int	file;
@@ -47,4 +44,4 @@ int	main(void)
 	printf("%s", get_next_line(file));
 	printf("%s", get_next_line(file));
 	printf("%s", get_next_line(file));
-}
+}*/
