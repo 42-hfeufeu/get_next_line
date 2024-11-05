@@ -25,14 +25,12 @@
 
 char	*ft_strchr(const char *s, int c);
 void	*ft_calloc(size_t nmemb, size_t size);
-int		checkif(char *s1);
+char	*get_bytes(int fd, char *bin);
 char	*caller(int fd, char *bin, int bytes, char *buffer);
-void	*ft_memset(void *s, int c, size_t n);
-int		gocheck(char *s);
 char	*ft_strjoin(char *s1, char *s2);
 char	*get_next_line(int fd);
 char	*ft_substr(char *s, unsigned int start, size_t len);
 char	*ft_strdup(char *s);
+char	*read_and_concat(int fd, char *bin, char *buffer, int bytes);
 size_t	ft_strlen(char *s);
-char	*judgator(char *s1, int bsize);
 #endif
