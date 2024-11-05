@@ -137,37 +137,35 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-char	*read_and_concat(int fd, char *bin, char *buffer)
+char	*read_and_concat(int fd, char *bin, char *buffer, int bytes)
 {
-	int		bytes;
-
-	bytes = read(fd, buffer, BUFFER_SIZE);
 	while (bytes > 0)
 	{
 		bin = ft_strjoin(bin, buffer);
 		if (!bin)
 			return (NULL);
 		if (ft_strchr(bin, '\n'))
-			break;
+			break ;
 		bytes = read(fd, buffer, BUFFER_SIZE);
 	}
-	if (!(bytes <= 0))
+	if (!(bytes < 0))
 		return (bin);
 	return (NULL);
 }
 
-char	*caller(int fd, char *bin)
+char	*caller(int fd, char *bin, int bytes, char *buffer)
 {
-	char	*buffer;
-
-	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
-	if (!buffer)
+	if (bytes < 0 && buffer[0] == '\0')
+	{
+		free(buffer);
+		free(bin);
 		return (NULL);
+	}
 	if (!bin)
 		bin = ft_calloc(1, 1);
 	if (!bin)
 		return (NULL);
-	bin = read_and_concat(fd, bin, buffer);
+	bin = read_and_concat(fd, bin, buffer, bytes);
 	free(buffer);
 	if (!bin || (bin[0] == '\0' && !ft_strlen(bin)))
 	{

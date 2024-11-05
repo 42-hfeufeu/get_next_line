@@ -14,11 +14,17 @@
 char	*get_next_line(int fd)
 {
 	static char	*bin;
+	char		*buffer;
 	char		*tmp;
 	char		*txt;
+	int			bytes;
 	int			i;
 
-	bin = caller(fd, bin);
+	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+	if (!buffer)
+		return (NULL);
+	bytes = read(fd, buffer, BUFFER_SIZE);
+	bin = caller(fd, bin, bytes, buffer);
 	if (!bin)
 		return (NULL);
 	i = 0;
@@ -29,7 +35,8 @@ char	*get_next_line(int fd)
 		tmp = ft_strdup(bin);
 		free(bin);
 		txt = ft_substr(tmp, 0, (i + 1));
-		bin = ft_substr(tmp, (i + 1), ft_strlen(tmp) - i);
+		if (tmp[i] == '\n')
+			bin = ft_substr(tmp, (i + 1), ft_strlen(tmp) - i);
 		free(tmp);
 		return (txt);
 	}
@@ -41,6 +48,7 @@ int	main(void)
 	int	file;
 
 	file = open("poem.txt", O_RDWR);
+	printf("%s", get_next_line(file));
 	printf("%s", get_next_line(file));
 	printf("%s", get_next_line(file));
 }
