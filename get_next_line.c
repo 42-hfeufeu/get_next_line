@@ -35,7 +35,7 @@ char	*get_next_line(int fd)
 	}
 	return (NULL);
 }
-/*
+
 int	main(void)
 {
 	int	file;
@@ -43,4 +43,4 @@ int	main(void)
 	file = open("poem.txt", O_RDWR);
 	printf("%s", get_next_line(file));
 	printf("%s", get_next_line(file));
-}*/
+}

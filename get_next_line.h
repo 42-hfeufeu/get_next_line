@@ -20,20 +20,15 @@
 # include <fcntl.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
+#  define BUFFER_SIZE 42
 # endif
-
-typedef struct s_list {
-	char			c;
-	struct s_list	*next;
-}					t_list;
 
 char	*ft_strchr(const char *s, int c);
 void	*ft_calloc(size_t nmemb, size_t size);
-int	checkif(char *s1);
+int		checkif(char *s1);
 char	*caller(int fd, char *bin);
 void	*ft_memset(void *s, int c, size_t n);
-int	gocheck(char *s);
+int		gocheck(char *s);
 char	*ft_strjoin(char *s1, char *s2);
 char	*get_next_line(int fd);
 char	*ft_substr(char *s, unsigned int start, size_t len);

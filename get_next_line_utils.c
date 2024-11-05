@@ -112,7 +112,7 @@ void	*ft_calloc(size_t nmemb, size_t size)
 
 	if (nmemb && nmemb * size / nmemb != size)
 		return (NULL);
-	mem = malloc (nmemb * size);
+	mem = malloc(nmemb * size);
 	if (!mem)
 		return (NULL);
 	mem = ft_memset(mem, 0, (nmemb * size));
@@ -137,34 +137,42 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
+char	*read_and_concat(int fd, char *bin, char *buffer)
+{
+	int		bytes;
+
+	bytes = read(fd, buffer, BUFFER_SIZE);
+	while (bytes > 0)
+	{
+		bin = ft_strjoin(bin, buffer);
+		if (!bin)
+			return (NULL);
+		if (ft_strchr(bin, '\n'))
+			break;
+		bytes = read(fd, buffer, BUFFER_SIZE);
+	}
+	if (!(bytes <= 0))
+		return (bin);
+	return (NULL);
+}
+
 char	*caller(int fd, char *bin)
 {
 	char	*buffer;
-	int		bytes;
-	int		n;
-	int		i;
 
-	n = 0;
-	i = 0;
 	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	if (!buffer)
 		return (NULL);
 	if (!bin)
 		bin = ft_calloc(1, 1);
-	while (!n && (bytes = read(fd, buffer, BUFFER_SIZE)) > 0)
-	{
-		bin = ft_strjoin(bin, buffer);
-		if (!bin || bytes == -1)
-		{
-			free(buffer);
-			free(bin);
-			return (NULL);
-		}
-		if (ft_strchr(bin, '\n') || !bin[i])
-			n = 1;
-	}
-	free(buffer);
-	if (bytes <= 0)
+	if (!bin)
 		return (NULL);
+	bin = read_and_concat(fd, bin, buffer);
+	free(buffer);
+	if (!bin || (bin[0] == '\0' && !ft_strlen(bin)))
+	{
+		free(bin);
+		return (NULL);
+	}
 	return (bin);
 }
