@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hfeufeu <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -9,7 +9,7 @@
 /*   Updated: 2024/10/17 15:50:12 by hfeufeu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 void	*ft_calloc(size_t nmemb, size_t size)
 {
@@ -97,25 +97,25 @@ char	*get_bytes(int fd, char *bin)
 
 char	*get_next_line(int fd)
 {
-	static char	*bin;
+	static char	*bin[1024];
 	char		*tmp;
 	char		*txt;
 	int			i;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	bin = get_bytes(fd, bin);
-	if (!bin)
+	bin[fd] = get_bytes(fd, bin[fd]);
+	if (!bin[fd])
 		return (NULL);
 	i = 0;
-	while (bin && bin[i] && bin[i] != '\n')
+	while (bin[fd] && bin[fd][i] && bin[fd][i] != '\n')
 		i++;
-	if (bin && (bin[i] == '\n' || bin[i] == '\0'))
+	if (bin[fd] && (bin[fd][i] == '\n' || bin[fd][i] == '\0'))
 	{
-		tmp = ft_strdup(bin);
-		free(bin);
+		tmp = ft_strdup(bin[fd]);
+		free(bin[fd]);
 		txt = ft_substr(tmp, 0, (i + 1));
-		bin = ft_substr(tmp, (i + 1), ft_strlen(tmp) - i);
+		bin[fd] = ft_substr(tmp, (i + 1), ft_strlen(tmp) - i);
 		free(tmp);
 		return (txt);
 	}
