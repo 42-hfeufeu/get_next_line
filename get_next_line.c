@@ -45,7 +45,7 @@ char	*read_and_concat(int fd, char *bin, char *buffer, int bytes)
 		read_bytes = read(fd, buffer, BUFFER_SIZE);
 		if (read_bytes < 0)
 		{
-			free(bin);
+			free(buffer);
 			return (NULL);
 		}
 		bytes = read_bytes;

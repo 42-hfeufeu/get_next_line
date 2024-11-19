@@ -56,6 +56,8 @@ char	*ft_strjoin(char *s1, char *s2)
 		return (NULL);
 	tmp = ft_strdup(s1);
 	free(s1);
+	if (!tmp)
+		return (NULL);
 	prod = ft_calloc(1, ((ft_strlen(tmp) + ft_strlen(s2)) + 1));
 	if (!prod)
 		return (NULL);
@@ -102,6 +104,8 @@ char	*ft_strchr(const char *s, int c)
 	int	i;
 
 	i = 0;
+	if (!s)
+		return (NULL);
 	if ((unsigned char)c > 127)
 		return ((char *)&s[i]);
 	while (s[i] != '\0')
